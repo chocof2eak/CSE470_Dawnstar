@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width,innitial-scale=1.0">
+  <title>Dawnstar</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+  <!-- Favicons -->
+  <link href="../View/assets/img/favicon.png" rel="icon">
+  <link href="../View/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../View/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../View/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="../View/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../View/assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="../View/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="../View/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../View/assets/css/coming-soon.css" rel="stylesheet">
+  <link href="../View/assets/css/home.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../View/assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: iPortfolio - v1.4.1
+  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="assets/img/game.png" alt="">
+        <h1 class="text-light"><a href="index.html">Greetings Admin</a></h1>
+      </div>
+
+      <nav class="nav-menu">
+        <ul>
+          <li class="active"><a href="#hero"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="#games"><i class="bx bx-game"></i> <span>Games</span></a></li>
+          <li><a href="#addgame"><i class="bx bx-plus"></i> <span>Add Games</span></a></li>
+          <li><a href="#deleteA"><i class="bx bx-minus"></i> Delete Account</a></li>
+          <li><a href="#deleteC"><i class="bx bx-minus"></i> Delete Game</a></li>
+          <li><a href="#history"><i class="bx bx-coin-stack"></i> History</a></li>
+          <li><a href="../View/index.html"><i class="bx bx-log-out"></i> Log Out</a></li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+
+      <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="hero-container" data-aos="fade-in">
+      <h1>Dawnstar : An online game-store </h1>
+      <p>We <span class="typed" data-typed-items="Game, Win, Have a Blast"></span></p>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Games Section ======= -->
+    <section id="games" class="about section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Trending Games</h2>
+        </div>
+
+        <h2>Games in Stock:</h2>
+        <hr />
+        <br>
+
+        <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "dawnn";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT * FROM Game WHERE 'pre-order' = 0";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result->num_rows > 0) {
+          // output data of each row
+          while ($row = $result->fetch_assoc()) {
+        ?>
+            <div class="container bcontent">
+              <div class="card" style="width: 1070px;">
+                <div class="row no-gutters">
+                  <div class="col-sm-5">
+                    <img class="card-img" src="../View/assets/img/gamephotos/<?= $row['image']; ?>" alt="Suresh Dasari Card">
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="card-body">
+                      <h1 class='card-title'>Game Name: <?= $row['Game_name']; ?></h1>
+                      <h3 class='card-text'>registration No.: <?= $row['reg_no']; ?></h3>
+                      <h3 class='card-text'>price : <?= $row['price']; ?></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+        <?php
+          }
+        } else {
+          echo "Unavailable Games";
+        }
+        $conn->close();
+        ?>
+        <br>
+        <h2>Stock out Games:</h2>
+        <hr />
+        <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "dawnn";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT * FROM Game WHERE GameID = 1";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result->num_rows > 0) {
+          // output data of each row
+          while ($row = $result->fetch_assoc()) {
+        ?>
+            <div class="container bcontent">
+              <div class="card" style="width: 1070px;">
+                <div class="row no-gutters">
+                  <div class="col-sm-5">
+                    <img class="card-img" src="../View/assets/img/gamephotos/<?= $row['image']; ?>" alt="Suresh Dasari Card">
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="card-body">
+                      <h1 class='card-title'>Game Name: <?= $row['Game_name']; ?></h1>
+                      <h3 class='card-text'>registration No.: <?= $row['reg_no']; ?></h3>
+                      <h3 class='card-text'>Price : <?= $row['price']; ?></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+        <?php
+          }
+        } else {
+          echo "All Games Available";
+        }
+        $conn->close();
+        ?>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Add Game Section ======= -->
+    <section id="addgame" class="resume">
+      <div class="container">
+        <div class="section-title">
+          <h2>Add Games</h2>
+        </div>
+        <div class="wrapper">
+          <div id="formContent">
+            <!-- Login Form -->
+            <form class="form1" method="POST" action="gameController.php" enctype="multipart/form-data">
+              <input type="hidden" name="size" value="1000000">
+              <input type="file" name="image" onchange="loadfile(event)">
+              <img id="preimage" width="200px" height="500px">
+              <script type="text/javascript">
+                function loadfile(event) {
+                  var output = document.getElementById('preimage');
+                  output.src = URL.createObjectURL(event.target.files[0]);
+                };
+              </script>
+              <input type="text" name="Game_name" placeholder="Game Name">
+              <input type="text" name="reg_no" placeholder="Registration No">
+              <input type="text" name="year" placeholder="Year">
+              <input type="text" name="price" placeholder="Price">
+              <input type="submit" name="submit">
+            </form>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Add Game Section -->
+
+    <!-- ======= Delete Account Section ======= -->
+    <section id="deleteA" class="resume">
+      <div class="container">
+        <div class="section-title">
+          <h2>Delete An Account</h2>
+        </div>
+        <div class="wrapper">
+          <div id="formContent">
+            <!-- Login Form -->
+            <h3 style="text-align: center;"> Fill up the form to delete an Account</h3>
+            <br>
+            <form class="form1" action="userController.php" method="POST">
+              <input type="text" name="id" placeholder=" User ID" required="required">
+              <input type="Password" name="password" placeholder="Password" required="required">
+              <input type="submit" name="submit">
+            </form>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Delete Account Section -->
+
+    <!-- ======= Delete Game Section ======= -->
+    <section id="deleteC" class="resume">
+      <div class="container">
+        <div class="section-title">
+          <h2>Delete Game</h2>
+        </div>
+        <div class="wrapper">
+          <div id="formContent">
+            <!-- Login Form -->
+            <h3 style="text-align: center;"> Fill up the form to delete game</h3>
+            <br>
+            <form class="form1" action="gameDeleteController.php" method="POST">
+              <input type="text" name="Game_name" placeholder="Name of the Game" required="required">
+              <input type="submit" name="submit">
+            </form>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Delete game Section -->
+
+    <!-- ======= History Section ======= -->
+    <section id="history" class="about section-bg">
+      <div class="container">
+        <div class="section-title">
+          <h2>Game Purchase History</h2>
+        </div>
+        <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "dawnn";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT * FROM Game inner join booking on GameID = GameID inner join customer on customer.id = booking.customer_id";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result->num_rows > 0) {
+          // output data of each row
+          while ($row = $result->fetch_assoc()) {
+        ?>
+            <div class="container bcontent">
+              <div class="card" style="width: 1070px;">
+                <div class="row no-gutters">
+                  <div class="col-sm-5">
+                    <img class="card-img" src="../View/assets/img/gamephotos/<?= $row['image']; ?>" alt="Suresh Dasari Card">
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="card-body">
+                      <h1 class='card-title'>Customer Name: <?= $row['name']; ?></h1>
+                      <h1 class='card-title'>Game Name: <?= $row['Game_name']; ?></h1>
+                      <h3 class='card-text'>Game Registration No.: <?= $row['reg_no']; ?></h3>
+                      <h3 class='card-text'>Booking No: <?= $row['book_id']; ?></h3>
+                      <h3 class='card-text'>Booking Date: <?= $row['start_date']; ?></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+        <?php
+          }
+        } else {
+        }
+        $conn->close();
+        ?>
+    </section><!-- End History Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Dawnstar</span></strong>
+      </div>
+    </div>
+  </footer><!-- End  Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../View/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../View/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../View/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="../View/assets/vendor/php-email-form/validate.js"></script>
+  <script src="../View/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="../View/assets/vendor/counterup/counterup.min.js"></script>
+  <script src="../View/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../View/assets/vendor/venobox/venobox.min.js"></script>
+  <script src="../View/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="../View/assets/vendor/typed.js/typed.min.js"></script>
+  <script src="../View/assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../View/assets/js/main.js"></script>
+
+</body>
+
+</html>
